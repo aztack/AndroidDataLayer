@@ -1,0 +1,80 @@
+{
+	"package": "com.nuts.android",
+	"typePackage": "com.nuts.android.item",
+	"base": "http://jiecao.kaixin001.com",
+	"types" : {
+		"Almanac": {
+			"day":    {"type":"String", "desc":"日期"},
+			"suit":   {"type":"String", "desc":"宜"},
+			"taboos": {"type":"String", "desc":"忌"}
+		},
+		"Question": {
+			"acttype":  {"type":"int",     "desc":"动作类型"},
+			"bigpic":   {"type":"String",  "desc":"大图URL"},
+			"cai":      {"type":"int",     "desc":"踩数量"},
+			"ding":     {"type":"int",     "desc":"顶数量"},
+			"ctime":    {"type":"String",  "desc":"创建日期"},
+			"date":     {"type":"String",  "desc":"日期"},
+			"ishot":    {"type":"int",     "desc":"是否热门"},
+			"pic":      {"type":"String",  "desc":"小图URL"},
+			"qid":      {"type":"String",  "desc":"ID"},
+			"question": {"type":"String",  "desc":"内容文字"}
+		},
+		"QuestionAndAlmanacOfDay": {
+			"almanac": {"type":"Almanac","desc":""},
+			"list":    {"type":"List<Question>","desc":""}
+		},
+		"QuestionList": {
+			"list": {"type":"List<Question>","desc":""}
+		},
+		"PostResponse": {
+			"succ":  {"type":"int", "desc":""},
+			"error": {"type":"String",  "desc":""}
+		}
+	},
+	"protocols":[{
+		"desc": "获取某天问题列表和黄历",
+		"name": "getQuestionList",
+		"type": "GET",
+		"url": "/api/getQuestionList/",
+		"inputs": {
+			"day": {
+				"desc": "天数偏移，1为昨天，2为前天",
+				"type": "int"
+			}
+		},
+		"output": {"type":"QuestionAndAlmanacOfDay"}
+	},{
+		"desc": "根据给定id数组获取问题列表",
+		"name": "getQuestionByQids",
+		"type": "GET",
+		"url": "/api/getQuestionByQids/",
+		"inputs": {
+			"qids": {
+				"desc":"逗号分隔的qid",
+				"type":"String"
+			}
+		},
+		"output": {"type":"QuestionList"}
+	},{
+		"desc": "顶踩操作",
+		"name": "postAct",
+		"type": "POST",
+		"url": "/api/postAct",
+		"inputs": {
+			"qid": {
+				"desc":"被操作的qid",
+				"type":"String"
+			},
+			"act": {
+				"desc":"操作动作",
+				"type":"int"
+			},
+			"mark": {
+				"desc":"device id",
+				"type":"String"
+			}
+		},
+		"output": {"type":"PostResult"}
+	}]
+}

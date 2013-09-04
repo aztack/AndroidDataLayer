@@ -1,0 +1,1 @@
+ruby AndroidDataLayerGen.rb protocols.json ../src
