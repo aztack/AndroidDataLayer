@@ -30,10 +30,20 @@ public class <%=name%> extends DataLayerBase {
 		return true;
 	}
 
+	/**
+	 * onReceiveResponse will be called after
+	 * every GET request
+	 * you can cache the parsed response when needed
+	 * @param urlId an integer with which you can distinguish between the requests
+	 */
 	@Override
-	void onReceiveResponse(int urlId, String response) {
+	void onReceiveResponse(int urlId, Object resp) {
 		// TODO Auto-generated method stub
-		
+		/*
+		if(urlId == _GET_NEWS_LIST){
+			cache the list
+		}
+		*/
 	}
 
 	@Override
@@ -57,6 +67,7 @@ public class <%=name%> extends DataLayerBase {
 				try {
 					json = (JSONObject) parser.parse(response);
 					<%=otype%> x = new <%=otype%>(json);
+					onReceiveResponse(_<%=name.underscore.upcase%>,x);
 					if (callback != null)
 						callback.invoke(x);
 				} catch (ParseException e) {
